@@ -1,0 +1,28 @@
+.navbar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 35px;
+    background-color: black;
+    position: fixed;
+    z-index: 9999;
+    width: 100%;
+    top: 80px;
+}
+
+.wrapper{
+    display: flex;
+    gap: 20px;
+    height: 100%;
+    color: white;
+    font-weight: 500;
+}
+
+.item{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 40px;
+    font-size: 14px;
+}

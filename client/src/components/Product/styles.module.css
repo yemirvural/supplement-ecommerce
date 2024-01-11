@@ -1,0 +1,37 @@
+.product{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.wrapper{
+    display: flex;  
+    flex-direction: column;
+    border: 1px solid black;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 200px;
+    height: 365px;
+}
+
+.name{
+    font-weight: 600;
+}
+.desc{
+    color: rgba(136,136,136);
+    font-size: 13px;
+    font-weight: 500;
+    max-width: 175px;
+}
+
+.price{
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.stars{
+    display: none;
+}
+.image img{
+    width: 168px;
+}
