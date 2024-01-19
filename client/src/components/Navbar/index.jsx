@@ -17,7 +17,7 @@ function Navbar() {
     <div className={styles.navbar}>
       <div className={styles.wrapper}>
         {
-          categories.map((item, index) => {return (<div key={index} className={styles.item}>{item}</div>)})
+          categories.map((item, index) => {return (<a href="/" key={index} className={styles.item}>{item}</a >)})
         }
       </div>
     </div>

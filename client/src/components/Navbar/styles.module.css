@@ -1,9 +1,18 @@
 .navbar{
-    display: flex;
     justify-content: center;
     align-items: center;
+    height: 75px;
+}
+.wrapper{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    height: auto;
+    background-color: black;
+    color: white;
+    font-weight: 500;
     width: 100%;
-    height: 35px;
+    height: auto;
     background-color: black;
     position: fixed;
     z-index: 9999;
@@ -11,12 +20,11 @@
     top: 80px;
 }
 
-.wrapper{
-    display: flex;
-    gap: 20px;
-    height: 100%;
-    color: white;
-    font-weight: 500;
+.wrapper .item:nth-child(n+8){
+    background-color: #c90406ff;
+}
+.wrapper .item:nth-child(n+9){
+    background-color: #ff6600ff;
 }
 
 .item{
@@ -25,4 +33,16 @@
     align-items: center;
     padding: 0 40px;
     font-size: 14px;
+    text-decoration: none;
+    height: 35px;
+    color: white;
+    text-wrap: nowrap;
+    user-select: none;
+    transition-duration: .3s;
+}
+
+.item:hover{
+    background-color: white !important;
+    color: black;
+    transition-duration: .3s;
 }

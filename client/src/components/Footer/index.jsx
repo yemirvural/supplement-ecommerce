@@ -1,7 +1,8 @@
+import styles from './styles.module.css';
 
 function Footer() {
   return (
-    <div>Footer</div>
+    <div className={styles.footer}>Footer</div>
   )
 }
 
