@@ -1,12 +1,72 @@
 import styles from './styles.module.css'
 import 'react-tooltip/dist/react-tooltip.css'
 import { Tooltip } from 'react-tooltip'
-import { useState } from 'react'
-
-
+import { useEffect, useState } from 'react'
+import AddressSection from './addressSection'
+import AddresEditSection from './addresEditSection'
+import FormButton from './formButton'
+import { updateStep } from '../../features/product/cartSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 function CheckOut() {
   const [isPromotionHidden, setIsPromotionHidden] = useState(false);
+  const [isEditActive, setIsEditActive] = useState(false);
+  const [isNewAddressActive, setIsNewAddressActive] = useState(false);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const id = "8817d9ec-8eb0-405d-839e-2f75fc1cc8ba";
+  const step = useSelector((state) => state.cart.step);
+
+  let addressData = [
+    {
+      id: "0000",
+      title: "KYK",
+      name: "Yusuf Emir",
+      surname: "Vural",
+      address1: "Seyit Mah. Afşar Sok. Seyit Avşar Kyk Yurdu",
+      address2: "Seyit Avşar KYK YURDU No:320",
+      province: "Bolu",
+      district: "Merkez",
+      country: "Türkiye",
+      countryCode: "90",
+      phone: "534 608 69 44",
+    },
+    {
+      id: "0001",
+      title: "EVİM",
+      name: "Yusuf Emir",
+      surname: "Vural",
+      address1: "Şeyhli Mah. Gülfidan Sokak No:2",
+      address2: "Hilal Konutları D:6 Blok Daire:35",
+      province: "İstanbul",
+      district: "Pendik",
+      country: "Türkiye",
+      countryCode: "90",
+      phone: "534 608 69 44",
+    },
+  ]
+
+  const editHandler = () => {
+    setIsEditActive(!isEditActive)
+  }
+
+  const nextStep = () => {
+    dispatch(updateStep())
+  }
+
+  useEffect(() => {
+    //if(step == "shipping"){ dispatch(updateStep())}
+
+    if (id && step) {
+      return navigate(`?id=${id}&step=${step}`)
+    }
+  }, [dispatch, navigate, step])
+
+  console.log(isNewAddressActive)
+
   return (
     <div className={styles.checkout}>
       <div className={styles.left}>
@@ -24,35 +84,51 @@ function CheckOut() {
               </div>
             </div>
             <div className={styles.stepContainer}>
-              <div className={styles.step}>
-                <div className={styles.stepTitleContainer}>
-                  <div className={`${styles.stepTitle} ${styles.active}`}>
+
+              <div className={`${styles.step} ${step === "info" ? styles.active : ""}`}>
+                <div style={{ borderTop: "none" }} className={styles.stepTitleContainer}>
+                  <div className={styles.stepTitle}>
                     <span>1</span>
                     <div>Adres</div>
                   </div>
                 </div>
                 <div className={styles.stepContent}>
-                    <div className={styles.sectionTitle}>
-                      <div className={styles.title}>Teslimat Adresi</div>
-                    </div>
-                    <div className={styles.optionRow}>
-                      <div className={`${styles.selectBox} ${styles.active}`}>
-                        <div className={styles.topContent}>
-                          <span className={styles.tick}></span>
-                          <div className={styles.nameContainer}>
-                            <div className={styles.name}>KYK</div>
-                          </div>
-                          <div className={styles.edit}>
-                            <button>Düzenle</button>
-                          </div>
-                        </div>
-                        <div className={styles.bottomContent}>
-
-                        </div>
-                      </div>
-                    </div>
+                  {
+                    !isEditActive ?
+                      <AddressSection
+                        addressData={addressData}
+                        isNewAddressActive={isNewAddressActive}
+                        setIsNewAddressActive={setIsNewAddressActive}
+                        nextStep={nextStep}
+                        editHandler={editHandler}
+                      />
+                      :
+                      <AddresEditSection
+                        addressData={addressData}
+                        editHandler={editHandler}
+                      />
+                  }
                 </div>
               </div>
+
+              <div className={`${styles.step} ${step === "shipping" ? styles.active : ""}`}>
+                <div className={styles.stepTitleContainer}>
+                  <div className={styles.stepTitle}>
+                    <span>2</span>
+                    <div>Kargo</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className={`${styles.step} ${step === "payment" ? styles.active : ""}`}>
+                <div className={styles.stepTitleContainer}>
+                  <div className={styles.stepTitle}>
+                    <span>3</span>
+                    <div>Ödeme</div>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
@@ -112,7 +188,7 @@ function CheckOut() {
               {isPromotionHidden && (
                 <div className={styles.promotionInput}>
                   <input placeholder='İndirim Kodu' type="text" />
-                  <button>Uygula</button>
+                  <FormButton>Uygula</FormButton>
                 </div>
               )}
             </div>

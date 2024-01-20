@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import styles from "./styles.module.css";
 import { updateAroma } from "../../features/product/productSlice";
 
-function SizeItem({ data }) {
+function AromaItem({ data }) {
     const aroma = useSelector((state) => state.product.aroma);
     const dispatch = useDispatch();
 
@@ -18,4 +18,4 @@ function SizeItem({ data }) {
     )
 }
 
-export default SizeItem
+export default AromaItem
