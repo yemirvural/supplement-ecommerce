@@ -3,11 +3,13 @@ import styles from './form.module.css';
 
 function FormInput({ placeHolder, prevData }) {
     const [inputValue, setInputValue] = useState();
+    
     useEffect(() => {
         if(prevData){
             setInputValue(prevData)
         }
-    },[])
+    },[prevData])
+    
     return (
         <div className={styles.formItemWrapper}>
             <div className={styles.formInputWrapper}>

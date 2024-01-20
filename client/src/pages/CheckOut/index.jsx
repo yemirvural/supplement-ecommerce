@@ -12,7 +12,6 @@ import { useNavigate } from 'react-router-dom'
 function CheckOut() {
   const [isPromotionHidden, setIsPromotionHidden] = useState(false);
   const [isEditActive, setIsEditActive] = useState(false);
-  const [isNewAddressActive, setIsNewAddressActive] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -58,14 +57,12 @@ function CheckOut() {
   }
 
   useEffect(() => {
-    //if(step == "shipping"){ dispatch(updateStep())}
+    if(step == "shipping"){ dispatch(updateStep())}
 
     if (id && step) {
       return navigate(`?id=${id}&step=${step}`)
     }
   }, [dispatch, navigate, step])
-
-  console.log(isNewAddressActive)
 
   return (
     <div className={styles.checkout}>
@@ -97,8 +94,6 @@ function CheckOut() {
                     !isEditActive ?
                       <AddressSection
                         addressData={addressData}
-                        isNewAddressActive={isNewAddressActive}
-                        setIsNewAddressActive={setIsNewAddressActive}
                         nextStep={nextStep}
                         editHandler={editHandler}
                       />

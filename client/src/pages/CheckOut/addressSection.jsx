@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { updateAddress } from '../../features/product/cartSlice'
 
 
-function AddressSection({ editHandler, nextStep, addressData, setIsNewAddressActive, isNewAddressActive }) {
+function AddressSection({ editHandler, nextStep, addressData }) {
     let addressId = useSelector((state) => state.cart.addressId);
     const dispatch = useDispatch();
 

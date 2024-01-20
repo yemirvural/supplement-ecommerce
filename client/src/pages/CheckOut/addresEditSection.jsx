@@ -1,7 +1,23 @@
 import { useSelector } from 'react-redux'
 import FormButton from './formButton'
 import FormInput from './formInput'
+import FormCheck from './formCheck'
 import styles from './styles.module.css'
+
+let province = [
+  { name: "İstanbul" },
+  { name: "Ankara" },
+  { name: "İzmir" },
+  { name: "Bursa" },
+  { name: "Bolu" },
+];
+let district = [
+  { name: "Pendik" },
+  { name: "Kartal" },
+  { name: "Maltepe" },
+  { name: "Kadıköy" },
+  { name: "Merkez" },
+];
 
 
 function AddresEditSection({ editHandler, addressData }) {
@@ -23,8 +39,8 @@ function AddresEditSection({ editHandler, addressData }) {
         <FormInput prevData={address.address1} type={"text"} placeHolder={"Mahalle, cadde, sokak, vb."} />
         <FormInput prevData={address.address2} type={"text"} placeHolder={"Apartman, daire, numara, vb."} />
         <div className={styles.formCol}>
-          <FormInput prevData={address.province} type={"text"} placeHolder={"İl"} />
-          <FormInput prevData={address.district} type={"text"} placeHolder={"İlçe"} />
+          <FormCheck prevData={address.province} type={"text"} optionData={province} placeHolder={"İl"} />
+          <FormCheck prevData={address.district} type={"text"} optionData={district} placeHolder={"İlçe"} />
         </div>
         <FormInput prevData={address.phone} type={"text"} placeHolder={"Telefon"} />
       </div>

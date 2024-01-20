@@ -1,10 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './form.module.css';
 import { GoTriangleDown } from "react-icons/go";
 
 
-function FormCheck({ placeHolder, data }) {
+function FormCheck({ placeHolder, prevData, optionData }) {
     const [inputValue, setInputValue] = useState('');
+
+    useEffect(() => {
+        if(prevData && optionData.includes(prevData)){
+            setInputValue(prevData)
+        }
+    },[optionData, prevData])
 
     return (
         <div className={styles.formItemWrapper}>
@@ -14,7 +20,7 @@ function FormCheck({ placeHolder, data }) {
                     value={inputValue} type="text">
                     <option value='' disabled></option>
                     {
-                        data.map((item, index) => (
+                        optionData?.map((item, index) => (
                             <option key={index} value={item.name}>{item.name}</option>
                         ))
                     }
