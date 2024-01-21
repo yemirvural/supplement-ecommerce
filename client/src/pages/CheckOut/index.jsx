@@ -8,6 +8,7 @@ import FormButton from './formButton'
 import { updateStep } from '../../features/product/cartSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { GrFormCheckmark } from 'react-icons/gr'
 
 function CheckOut() {
   const [isPromotionHidden, setIsPromotionHidden] = useState(false);
@@ -58,8 +59,14 @@ function CheckOut() {
     dispatch(updateStep())
   }
 
+  const completedSteps = (currStep) => {
+    const steps = ["info", "shipping", "payment"];
+    let stepIndex = steps.indexOf(currStep);
+    return steps.splice(0, stepIndex);
+  }
+
   useEffect(() => {
-    if(step == "shipping"){ dispatch(updateStep())}
+    if (step == "shipping") { dispatch(updateStep()) }
 
     if (id && step) {
       return navigate(`?id=${id}&step=${step}`)
@@ -84,10 +91,13 @@ function CheckOut() {
             </div>
             <div className={styles.stepContainer}>
 
-              <div className={`${styles.step} ${step === "info" ? styles.active : ""}`}>
+              <div className={`${styles.step} ${completedSteps(step).includes('info') && styles.completed}  ${step === "info" ? styles.active : ""}`}>
                 <div style={{ borderTop: "none" }} className={styles.stepTitleContainer}>
                   <div className={styles.stepTitle}>
-                    <span>1</span>
+                    <span>
+                      1
+                      <div className={styles.stepTick}><GrFormCheckmark size={24} /></div>
+                    </span>
                     <div>Adres</div>
                   </div>
                 </div>
@@ -108,19 +118,25 @@ function CheckOut() {
                 </div>
               </div>
 
-              <div className={`${styles.step} ${step === "shipping" ? styles.active : ""}`}>
+              <div className={`${styles.step} ${completedSteps(step).includes('shipping') ? styles.completed : ''}  ${step === "shipping" ? styles.active : ""}`}>
                 <div className={styles.stepTitleContainer}>
                   <div className={styles.stepTitle}>
-                    <span>2</span>
+                    <span>
+                      2
+                      <div className={styles.stepTick}><GrFormCheckmark size={24} /></div>
+                    </span>
                     <div>Kargo</div>
                   </div>
                 </div>
               </div>
 
-              <div className={`${styles.step} ${step === "payment" ? styles.active : ""}`}>
+              <div className={`${styles.step} ${completedSteps(step).includes('payment') ? styles.completed : ''}  ${step === "payment" ? styles.active : ""}`}>
                 <div className={styles.stepTitleContainer}>
                   <div className={styles.stepTitle}>
-                    <span>3</span>
+                    <span>
+                      3
+                      <div className={styles.stepTick}><GrFormCheckmark size={24} /></div>
+                    </span>
                     <div>Ödeme</div>
                   </div>
                 </div>

@@ -60,7 +60,8 @@
     align-items: center;
 }
 
-.stepTitle div {
+
+.stepTitle>div {
     font-size: 22px;
     color: #8A8B94;
     flex: 0 0 auto;
@@ -81,6 +82,7 @@
 }
 
 .stepTitle span {
+    position: relative;
     width: 32px;
     height: 32px;
     border-radius: 100%;
@@ -93,6 +95,30 @@
     flex: 0 0 auto;
     font-size: 20px;
 }
+
+.step .stepTick {
+    visibility: hidden;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    color: #FFFFFF;
+}
+
+.step.completed .stepTitle span {
+    background-color: #2126ab;
+}
+
+.step.completed .stepTitle>div {
+    color: unset;
+}
+
+.step.completed .stepTick {
+    visibility: visible;
+}
+
 
 .step.active .stepTitle span {
     background-color: #2126ab;
@@ -313,7 +339,6 @@
     margin-right: 16px;
 }
 
-
 .checkboxBorder {
     width: 20px;
     height: 20px;
@@ -325,7 +350,7 @@
     transition: border-width 0.2s ease-in-out;
 }
 
-.selectBox.active > .topContent > .checkboxContainer > .checkboxBorder {
+.selectBox.active>.topContent>.checkboxContainer>.checkboxBorder {
     border: 10px solid #2126ab;
 }
 
@@ -358,6 +383,7 @@
     opacity: 1;
     transform: scale(1.2);
 }
+
 .saveAddress.active .checkboxTick {
     opacity: 1;
     transform: scale(1.2);
