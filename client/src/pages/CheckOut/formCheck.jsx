@@ -7,7 +7,7 @@ function FormCheck({ placeHolder, prevData, optionData }) {
     const [inputValue, setInputValue] = useState('');
 
     useEffect(() => {
-        if(prevData && optionData.includes(prevData)){
+        if(prevData && optionData.some(data => data.name === prevData)){
             setInputValue(prevData)
         }
     },[optionData, prevData])

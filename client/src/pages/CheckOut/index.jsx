@@ -30,8 +30,9 @@ function CheckOut() {
       province: "Bolu",
       district: "Merkez",
       country: "Türkiye",
-      countryCode: "90",
-      phone: "534 608 69 44",
+      countryCode: "US",
+      callingCode: "+1",
+      phoneNumber: "534 608 69 44",
     },
     {
       id: "0001",
@@ -43,8 +44,9 @@ function CheckOut() {
       province: "İstanbul",
       district: "Pendik",
       country: "Türkiye",
-      countryCode: "90",
-      phone: "534 608 69 44",
+      countryCode: "TR",
+      callingCode: "+90",
+      phoneNumber: "534 608 69 44",
     },
   ]
 

@@ -3,6 +3,7 @@ import FormButton from './formButton'
 import FormInput from './formInput'
 import FormCheck from './formCheck'
 import styles from './styles.module.css'
+import FormTel from './formTel'
 
 let province = [
   { name: "İstanbul" },
@@ -42,7 +43,7 @@ function AddresEditSection({ editHandler, addressData }) {
           <FormCheck prevData={address.province} type={"text"} optionData={province} placeHolder={"İl"} />
           <FormCheck prevData={address.district} type={"text"} optionData={district} placeHolder={"İlçe"} />
         </div>
-        <FormInput prevData={address.phone} type={"text"} placeHolder={"Telefon"} />
+        <FormTel prevData={address} type={"text"} placeHolder={"Telefon"} />
       </div>
       <div className={styles.editAddressActions}>
         <FormButton type="white" height={'56px'}>Adresi Sil</FormButton>

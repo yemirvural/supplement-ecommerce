@@ -1,8 +1,10 @@
 import styles from './styles.module.css'
 import FormInput from "./formInput"
 import FormCheck from './formCheck'
+import FormTel from './formTel.jsx'
 import { GrFormCheckmark } from 'react-icons/gr';
 import { useState } from 'react';
+
 
 let province = [
   { name: "İstanbul" },
@@ -23,16 +25,16 @@ function AddresAddSection() {
     <div className={styles.addAddressContainer}>
       <div className={styles.formRow}>
         <div className={styles.formCol}>
-          <FormInput type={"text"} placeHolder={"Ad"} />
-          <FormInput type={"text"} placeHolder={"Soyad"} />
+          <FormInput placeHolder={"Ad"} />
+          <FormInput placeHolder={"Soyad"} />
         </div>
-        <FormInput type={"text"} placeHolder={"Mahalle, cadde, sokak, vb."} />
-        <FormInput type={"text"} placeHolder={"Apartman, daire, numara, vb."} />
+        <FormInput placeHolder={"Mahalle, cadde, sokak, vb."} />
+        <FormInput placeHolder={"Apartman, daire, numara, vb."} />
         <div className={styles.formCol}>
           <FormCheck placeHolder={"İl"} optionData={province} />
           <FormCheck placeHolder={"İlçe"} optionData={district} />
         </div>
-        <FormInput type={"text"} placeHolder={"Telefon"} />
+        <FormTel placeHolder={"Telefon"} subPlaceHolder={"Telefon numarası girin"} />
       </div>
       <div onClick={() => setSaveAddress(!saveAddress)} className={`${styles.checkboxWrapper} ${styles.saveAddress} ${saveAddress && styles.active}`}>
         <div className={styles.checkboxContainer}>
@@ -46,7 +48,7 @@ function AddresAddSection() {
         </div>
       </div>
       {saveAddress && <div className={styles.addressTitle}>
-        <FormInput type={"text"} placeHolder={"Adres Başlığı"} />
+        <FormInput placeHolder={"Adres Başlığı"} />
       </div>}
     </div>
   )

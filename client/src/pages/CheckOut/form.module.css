@@ -2,9 +2,11 @@
     position: relative;
     width: 100%;
 }
-.formItemWrapper{
+
+.formItemWrapper {
     position: relative;
 }
+
 .formInputWrapper * {
     box-sizing: border-box !important;
     font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -48,6 +50,7 @@
     -moz-appearance: none;
     -webkit-appearance: none;
 }
+
 .formInputWrapper select {
     border: 1px solid #E5E4E9;
     background-color: #FFFFFF;
@@ -78,6 +81,7 @@
 .formInputWrapper select:focus-within {
     border: 2px solid #2126ab;
 }
+
 .formInputWrapper input.active+label {
     transform: translateY(8px);
     font-size: 0.7em;
@@ -118,11 +122,97 @@
     color: #272727;
 }
 
-.arrowDown{
+.arrowDown {
     position: absolute;
     display: flex;
     align-items: center;
     height: 100%;
     top: 0;
     right: 10px;
+}
+
+
+.selectFlag {
+    position: absolute;
+    top: 26px;
+    left: 16px;
+}
+
+.flagContainer {
+    position: relative;
+    width: 35px;
+    height: 24px;
+    flex: 0 0 35px;
+}
+
+.selectFlag .flag {
+    position: relative;
+    width: 35px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+}
+
+.selectFlag .flag img {
+    width: 24px;
+    flex: 0 0 24px;
+    max-width: 100%;
+    height: auto;
+    min-height: 16px;
+}
+
+.selectFlag .flag .flagArrow {
+    display: block;
+    content: "";
+    width: 0.3em;
+    height: 0.3em;
+    margin-left: 0.35em;
+    margin-top: -0.2em;
+    border-style: solid;
+    border-color: inherit;
+    border-top-width: 0;
+    border-bottom-width: 1px;
+    border-left-width: 0;
+    border-right-width: 1px;
+    transform: rotate(45deg);
+    opacity: 0.45;
+    flex: 0 0 0.3em;
+}
+
+.flagContainer select {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    padding: 0;
+    opacity: 0;
+    border: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+.formInputWrapper input[type="tel"] {
+    padding: 8px 16px;
+}
+
+.formInputWrapper input[type="tel"] {
+    transition: unset;
+}
+.formInputWrapper input[type="tel"] {
+    padding-left: 64px !important;
+    padding-top: 24px !important;
+}
+.formInputWrapper input[type="tel"]+label {
+    transform: translateY(8px);
+    font-size: 0.7em;
+}
+
+.formInputWrapper input[type="tel"]:disabled {
+    color: #8A8B94 !important;
+    background-color: #F7F7F9 !important;
+}
+
+.formInputWrapper input[type="tel"]::placeholder {
+    color: #8A8B94 !important;
+    font-size: 14px !important;
 }
