@@ -9,6 +9,9 @@ import { updateStep } from '../../features/product/cartSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { GrFormCheckmark } from 'react-icons/gr'
+import axios from 'axios'
+import { formatPrice } from '../../utils/formatPrice'
+import { updateProducts } from '../../features/cart/cartData'
 
 function CheckOut() {
   const [isPromotionHidden, setIsPromotionHidden] = useState(false);
@@ -18,8 +21,11 @@ function CheckOut() {
   const navigate = useNavigate();
 
   const id = "8817d9ec-8eb0-405d-839e-2f75fc1cc8ba";
+  const userId = "0001";
   const step = useSelector((state) => state.cart.step);
+  const cartData = useSelector((state) => state.cartData.cartProducts);
 
+  cartData && console.log(cartData)
   let addressData = [
     {
       id: "0000",
@@ -72,6 +78,36 @@ function CheckOut() {
       return navigate(`?id=${id}&step=${step}`)
     }
   }, [dispatch, navigate, step])
+
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/cart/${userId}`);
+        dispatch(updateProducts(response.data.products));
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+  }, [dispatch]);
+
+  const calculatePrice = (amount, price) => {
+    let value = (amount * price);
+    return value;
+  }
+
+  const calculateSubTotalPrice = () => {
+    let value = 0;
+    cartData && cartData.map(item => value += (item.price * item.amount));
+    return value;
+  }
+  const calculateTotalPrice = () => {
+    let value = calculateSubTotalPrice();
+    let discountCost = 0;
+    let cargoCost = 0;
+    return (value + cargoCost) - discountCost;
+  }
 
   return (
     <div className={styles.checkout}>
@@ -151,20 +187,25 @@ function CheckOut() {
         <div className={styles.rightContent}>
           <div className={styles.cartSummary}>
             <div className={styles.productsContainer}>
-              <div className={styles.product}>
-                <div className={styles.productImage}>
-                  <img src="https://cdn.myikas.com/images/00b6c111-71dc-4400-932f-8db87e5da64c/f2f9d948-9a4b-4a96-b2d4-8227989f9830/image_180.webp" alt="" />
-                  <span className={styles.itemCount}>1</span>
-                </div>
-                <div className={styles.productInfo}>
-                  <div className={styles.title}>FITNESS PAKETİ</div>
-                  <div className={styles.subTitle}>Bisküvi / Ahududu</div>
-                </div>
-                <div className={styles.priceContainer}>
-                  <span className={styles.grayPrice}>995 TL</span>
-                  <span className={styles.price}>699 TL</span>
-                </div>
-              </div>
+              {
+                cartData && cartData.map((item) =>
+                (
+                  <div key={item.id} className={styles.product}>
+                    <div className={styles.productImage}>
+                      <img src={item.image} alt="" />
+                      <span className={styles.itemCount}>{item.amount}</span>
+                    </div>
+                    <div className={styles.productInfo}>
+                      <div className={styles.title}>{item.title}</div>
+                      <div className={styles.subTitle}>{item.subTitle}</div>
+                    </div>
+                    <div className={styles.priceContainer}>
+                      {item.grayPrice && <span className={styles.grayPrice}>{item.grayPrice} TL</span>}
+                      <span className={styles.price}>{formatPrice(calculatePrice(item.amount, item.price))} TL</span>
+                    </div>
+                  </div>
+                ))
+              }
             </div>
             <div className={styles.divider}></div>
 
@@ -185,7 +226,7 @@ function CheckOut() {
                     <Tooltip className={styles.deneme} id="my-tool" />
                   </div>
                 </div>
-                <div className={styles.infoRight}>4,299 TL</div>
+                <div className={styles.infoRight}>{formatPrice(calculateSubTotalPrice())} TL</div>
               </div>
             </div>
 
@@ -208,7 +249,7 @@ function CheckOut() {
 
             <div className={styles.totalContainer}>
               <span>Toplam</span>
-              <span>699 TL</span>
+              <span>{formatPrice(calculateTotalPrice())} TL</span>
             </div>
           </div>
         </div>

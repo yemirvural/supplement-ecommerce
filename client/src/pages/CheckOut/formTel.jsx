@@ -7,6 +7,7 @@ function FormTel({ placeHolder, subPlaceHolder, prevData }) {
     const [inputValue, setInputValue] = useState();
     const [countryCode, setCountryCode] = useState('TR');
     const [flagData, setFlagData] = useState();
+    const [isPrevDataRead, setIsPrevDataRead] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -26,31 +27,31 @@ function FormTel({ placeHolder, subPlaceHolder, prevData }) {
     let imageLink = currentFlag && currentFlag.flags.png;
 
     useEffect(() => {
-        if (prevData) {
+        if (prevData && !isPrevDataRead) {
             setCountryCode(prevData.countryCode);
             setInputValue(formatPhoneNumber(prevData.phoneNumber, prevData.callingCode))
+            setIsPrevDataRead(true);
         }
-    }, [phoneCode, prevData])
-
-    useEffect(() => {
-        if (inputValue) {
-            if (inputValue.includes(' ') && inputValue.startsWith('+')) {
-                let newPhoneCode = inputValue.split(' ')[0]
-                if (newPhoneCode !== phoneCode) {
-                    let newCountryCode = flagData && flagData.find(data => data.callingCode === newPhoneCode)?.code;
-                    if (newCountryCode) {
-                        setCountryCode(newCountryCode);
-                    }
-                }
-            }
-        }
-    }, [flagData, inputValue, phoneCode])
-
-
+    }, [isPrevDataRead, phoneCode, prevData])
 
     const inputHandler = (e) => {
         const inputValue = e.target.value;
         return setInputValue(formatPhoneNumber(inputValue, phoneCode))
+    }
+    const selectHandler = (e) => {
+        setCountryCode(e.target.value);
+
+        let newCallingCode = flagData && flagData.find((flag) => flag.code === e.target.value).callingCode;
+        let splitedNumber = inputValue && inputValue.split(' ');
+
+        if (inputValue === undefined) {
+            setInputValue(newCallingCode)
+        }
+        if (phoneCode) {
+            splitedNumber[0] = newCallingCode;
+        }
+        let newNumber = splitedNumber && splitedNumber.join(' ');
+        newNumber && setInputValue(newNumber);
     }
 
     return (
@@ -63,7 +64,7 @@ function FormTel({ placeHolder, subPlaceHolder, prevData }) {
                             <div className={styles.flagArrow}></div>
                         </div>
                         <select autoComplete='off' className={`${inputValue ? styles.active : ""}`}
-                            onChange={(e) => setCountryCode(e.target.value)}
+                            onChange={selectHandler}
                             value={countryCode}>
                             <option value='' disabled></option>
                             {

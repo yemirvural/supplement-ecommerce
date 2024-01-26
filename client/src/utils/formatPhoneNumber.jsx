@@ -1,6 +1,6 @@
 export const formatPhoneNumber = (phoneNumber, phoneCode) => {
     let cleaned = phoneNumber.replace(/\D/g, '');
-    if(phoneNumber.includes(' ') && phoneNumber.startsWith('+')){
+    if (phoneNumber.includes(' ') && phoneNumber.startsWith('+')) {
         phoneCode = phoneNumber.split(' ')[0]
     }
     if (phoneNumber.includes(phoneCode)) {
@@ -27,5 +27,8 @@ export const formatPhoneNumber = (phoneNumber, phoneCode) => {
         }
         return data;
     }
-    return null;
+    if (cleaned.length > 0) {
+        return null;
+    }
+    return undefined;
 };

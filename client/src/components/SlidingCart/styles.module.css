@@ -1,0 +1,337 @@
+body {
+}
+
+.slidingCart * {
+    box-sizing: border-box !important;
+    font-family: Futura PT;
+}
+
+.slidingCart.active {
+    --tw-translate-x: 0px !important;
+}
+.slidingCart {
+    font-family: Futura PT;
+    transition-property: transform;
+    transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+    transition-duration: .15s;
+    box-shadow: var(0 0 #0000 0 0 #0000), 0 0 #0000, -20px 4px 50px 10px rgba(0, 0, 0, .12);
+    background-color: rgba(255, 255, 255);
+    justify-content: space-between;
+    flex-direction: column;
+    width: 500px;
+    height: 100vh;
+    display: flex;
+    z-index: 9999;
+    right: 0;
+    top: 0;
+    position: fixed;
+    --tw-translate-x: 0;
+    --tw-translate-y: 0;
+    --tw-rotate: 0;
+    --tw-skew-x: 0;
+    --tw-skew-y: 0;
+    --tw-scale-x: 1;
+    --tw-scale-y: 1;
+    --tw-transform: translateX(var(--tw-translate-x)) translateY(var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    border-color: currentColor;
+    --tw-ring-offset-shadow: 0 0 #0000;
+    --tw-ring-shadow: 0 0 #0000;
+    --tw-shadow: 0 0 #0000;
+    --tw-filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+    --tw-translate-x: 100%;
+    --tw-transform: translateX(var(--tw-translate-x)) translateY(var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    transform: var(--tw-transform);
+    
+}
+.wrapper {
+    position: relative;
+}
+
+.header {
+    padding-top: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 56px;
+    display: flex;
+}
+
+.header h3 {
+    color: rgba(0, 0, 0);
+    line-height: 2;
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 2rem;
+}
+
+.body {
+    display: flex;
+    width: 100%;
+    height: auto;
+    flex-direction: column;
+    position: relative;
+}
+
+.progressBarContainer {
+    display: flex;
+    width: 100%;
+    position: relative;
+    height: auto;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.progressBarWrapper {
+    background-color: rgba(246, 246, 246);
+    width: calc(100% + 26px);
+    transform: translateX(-7px) translateY(-25px);
+    height: 16px;
+    border-radius: 4px;
+    z-index: -1;
+    left: 20px;
+    width: 95%;
+    overflow: hidden;
+    position: absolute;
+}
+
+.progressBar {
+    width: calc(100%);
+    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+    transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+    transition-duration: .15s;
+    border-radius: 4px;
+    height: 16px;
+    position: absolute;
+    left: 0;
+    background-color: rgba(35, 45, 168);
+}
+
+.progressItems {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    text-align: center;
+}
+
+.progressItemWrapper {
+    position: relative;
+}
+
+.progressItemWrapper h3 {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.progressItem {
+    padding: 0.25rem;
+    border: 1px solid rgba(35, 45, 168);
+    background-color: rgba(255, 255, 255);
+    border-radius: 9999px;
+    overflow: hidden;
+    width: 70px;
+    height: 70px;
+    z-index: 20;
+    position: relative;
+}
+
+.progressItem span {
+    box-sizing: border-box;
+    display: block;
+    width: initial;
+    height: initial;
+    background: none;
+    opacity: 1;
+    border: 0px;
+    margin: 0px;
+    padding: 100% 0px 0px;
+}
+
+.progressItem img {
+    position: absolute;
+    inset: 0px;
+    box-sizing: border-box;
+    padding: 0px;
+    border: none;
+    margin: auto;
+    display: block;
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+.productsContainer {
+    background-color: rgba(247, 247, 247);
+    height: 575px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.productWrapper {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(221, 221, 221);
+    gap: 1rem;
+    align-items: center;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    display: grid;
+    position: relative;
+}
+
+.productImage {
+    align-self: flex-start;
+    grid-column: span 3/span 3;
+    width: 100%;
+    height: 100%;
+    min-width: 98px;
+    min-height: 98px;
+}
+
+.productName {
+    margin-right: 0.5rem;
+    font-size: 16px;
+    font-weight: 700;
+    display: block;
+    color: rgba(145, 145, 145);
+}
+
+.leading-normal {
+    line-height: 1.5;
+}
+
+.productName .name {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 28px;
+    color: rgba(0, 0, 0);
+}
+
+.productImage img {
+    position: absolute;
+    inset: 0px;
+    box-sizing: border-box;
+    padding: 0px;
+    border: none;
+    margin: auto;
+    display: block;
+    width: 98px;
+    height: 98px;
+    object-fit: contain;
+}
+
+.productName {
+    align-self: flex-start;
+    grid-column: span 5/span 5;
+
+}
+
+.productPriceContainer {
+    align-self: flex-start;
+    grid-column: span 4/span 4;
+}
+
+.productPrice {
+    color: rgba(0, 0, 0);
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: right;
+}
+
+.productQuantity {
+    width: 135px;
+    box-shadow: 0 0 #0000, 0 0 #0000, 0px 3px 4px 0px rgba(0, 0, 0, .08);
+    border-radius: 4px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    width: 100%;
+    height: 36px;
+    display: grid;
+    margin-left: auto;
+    margin-top: 20px;
+    background-color: rgba(255, 255, 255);
+}
+
+.productQuantity button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.productQuantity input {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    grid-column: span 2/span 2;
+}
+
+.productQuantity button {
+    grid-column: span 1/span 1;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 28px;
+}
+
+.summaryContainer {
+    padding-left: 40px;
+    padding-right: 40px;
+    height: 100%;
+    min-height: 150px;
+}
+
+.summaryContainer .buttonWrapper {
+    margin-bottom: 20px;
+}
+
+.buttonWrapper button {
+    border-radius: 4px;
+}
+
+.buttonTitle {
+    padding: 16px;
+    line-height: 2;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 35px;
+}
+
+.totalWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-direction: row;
+
+}
+
+.totalPrice {
+    color: rgba(0, 0, 0);
+    font-weight: 700;
+}
+
+.discount {
+    color: rgba(82, 196, 26);
+    justify-content: flex-end;
+    display: flex;
+}
+
+.actionText {
+    text-decoration: underline;
+    color: rgba(35, 45, 168);
+    line-height: 20px;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: left;
+    flex-direction: column;
+    cursor: pointer;
+    width: auto;
+    display: flex;
+    margin-bottom: 4px;
+}

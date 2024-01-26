@@ -1,7 +1,8 @@
 .navbar{
     justify-content: center;
     align-items: center;
-    height: 75px;
+    height: 35px;
+    max-height: 70px;
 }
 .wrapper{
     display: flex;

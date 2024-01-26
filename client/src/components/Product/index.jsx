@@ -9,12 +9,15 @@ import { useSelector, useDispatch } from 'react-redux'
 import { updateAroma, updatePiece } from "../../features/product/productSlice";
 import SizeItem from "./sizeItem";
 import AromaItem from "./aromaItem"
+import { openSlidingCart } from "../../features/cart/slidingCart";
 
 
 function Product({ productName }) {
+
   const [data, setData] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const userId = "0001";
 
   const aroma = useSelector((state) => state.product.aroma);
   const size = useSelector((state) => state.product.size);
@@ -69,9 +72,27 @@ function Product({ productName }) {
     return sizeData.aromas.some(item => item.name == aroma)
   }
 
-  const calcPerServe = () => {
+  const calculatePerServe = () => {
     const price = sizeData && (sizeData.price / sizeData.service);
     return sizeData && price.toFixed(2);
+  }
+
+  const addCartHandler = async () => {
+    const subTitle = `${size} / ${aroma}`
+    const resData = {
+      id: data.id,
+      size,
+      aroma,
+      title: data.title,
+      subTitle,
+      image,
+      price: data.price,
+      grayPrice: data?.grayPrice,
+      amount: piece,
+    }
+    dispatch(openSlidingCart())
+    const response = await axios.post(`http://localhost:3000/cart/${userId}`, resData);
+    console.log(response)
   }
 
   return (
@@ -107,7 +128,7 @@ function Product({ productName }) {
           </div>
           <div className={styles.priceContainer}>
             <span className={styles.price}><b>{data && sizeData.price} TL</b></span>
-            <span className={styles.priceOfService}>{calcPerServe()} TL / Servis</span>
+            <span className={styles.priceOfService}>{calculatePerServe()} TL / Servis</span>
           </div>
           <div className={styles.addCart}>
             <div onChange={inputHandler} className={styles.input}>
@@ -115,7 +136,7 @@ function Product({ productName }) {
               <input value={piece} type="text" />
               <button onClick={() => countHandler(1)}>+</button>
             </div>
-            <button className={styles.inputButton}><IoCartOutline size={27} />SEPETE EKLE</button>
+            <button onClick={addCartHandler} className={styles.inputButton}><IoCartOutline size={27} />SEPETE EKLE</button>
           </div>
           <div className={styles.separator}></div>
           <p dangerouslySetInnerHTML={{ __html: data && data.desc }}></p>

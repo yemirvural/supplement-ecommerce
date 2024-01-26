@@ -1,7 +1,5 @@
 import styles from './styles.module.css'
 import { star } from '../../utils/starUtils'
-import { useSelector } from 'react-redux'
-
 
 function ProductCard({ product }) {
 

@@ -1,6 +1,6 @@
 let data = [
     {
-        id: "0001",
+        id: "0071",
         name: "whey-protein",
         title: "WHEY PROTEIN",
         subTitle: "EN ÇOK TERCİH EDİLEN PROTEİN TAKVİYESİ",

@@ -4,8 +4,6 @@ import FeaturedProducts from '../../components/FeaturedProducts'
 import ProductComments from '../../components/ProductComments'
 import Product from '../../components/Product'
 
-
-
 function ProductPage() {
   let { productName } = useParams();
 

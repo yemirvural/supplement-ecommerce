@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
 const bodyParser = require('body-parser');
+let cartData = require('./cartData');
 
 const app = express();
 
@@ -24,6 +25,62 @@ app.get("/products", (req, res) => {
 })
 app.get("/bestseller", (req, res) => {
     res.send(data);
+})
+app.get("/cart/:id", (req, res) => {
+    const { id } = req.params;
+    const userCartData = cartData.find((data) => data.userId === id);
+    if (userCartData) {
+        res.send(userCartData);
+    }
+    res.status(400).json({ error: 'User doesnt found' });
+})
+app.post("/cart/:id", (req, res) => {
+    const { id } = req.params;
+    const product = req.body;
+    const userData = cartData.find((data) => data.userId === id);
+    const dataProduct = userData.products.find(item => item.id === product.id)
+
+    if (!userData) {
+        const newData = {
+            userId: id,
+            products: [product]
+        }
+        cartData.push(newData);
+        res.status(200).send(cartData);
+    }
+    if (!product) {
+        res.status(404).json({ info: 'There is not product to add cart' })
+    }
+    if (!dataProduct || dataProduct.aroma !== product.aroma || dataProduct.size !== product.size) {
+        userData.products.push(product)
+        res.status(200).send(cartData);
+    }
+    if(dataProduct.aroma === product.aroma && dataProduct.size === product.size){
+        dataProduct.amount += product.amount;
+        res.status(200).send(cartData);
+    }
+    //res.status(200).json({ info: 'Product added to cart successfully!' });
+})
+app.patch("/cart/:id", (req, res) => {
+    const { id } = req.params;
+    const data = req.body;
+    const userData = cartData.find((data) => data.userId === id);
+    const dataProduct = userData.products.find(item => item.id === data.id)
+    
+    if(dataProduct){
+        dataProduct.amount = data.count
+    }
+    res.status(200).send(cartData);
+})
+app.delete("/cart/:id/:productId", (req, res) => {
+    const { id, productId } = req.params; 
+    const userCartData = cartData.find((data) => data.userId === id);
+    const filteredCartData = userCartData.products.filter((product) => product.id !== productId);
+    userCartData.products = filteredCartData;
+    if (userCartData) {
+        res.send(cartData);
+    }
+    res.status(400).json({ error: 'User doesnt found' });
 })
 app.get("/flagData", async (req, res) => {
     try {
