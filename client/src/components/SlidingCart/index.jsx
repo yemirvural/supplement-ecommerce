@@ -26,6 +26,7 @@ function SlidingCart() {
         fetchData();
     }, [dispatch]);
 
+    cartData && console.log(cartData)
     const calculateSubTotalPrice = () => {
         let value = 0;
         cartData && cartData.map(item => value += (item.price * item.amount));

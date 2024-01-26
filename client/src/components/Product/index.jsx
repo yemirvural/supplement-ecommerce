@@ -10,6 +10,7 @@ import { updateAroma, updatePiece } from "../../features/product/productSlice";
 import SizeItem from "./sizeItem";
 import AromaItem from "./aromaItem"
 import { openSlidingCart } from "../../features/cart/slidingCart";
+import { addProduct } from "../../features/cart/cartData";
 
 
 function Product({ productName }) {
@@ -90,9 +91,9 @@ function Product({ productName }) {
       grayPrice: data?.grayPrice,
       amount: piece,
     }
+    dispatch(addProduct(resData))
     dispatch(openSlidingCart())
     const response = await axios.post(`http://localhost:3000/cart/${userId}`, resData);
-    console.log(response)
   }
 
   return (

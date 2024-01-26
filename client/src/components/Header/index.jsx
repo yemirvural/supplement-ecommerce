@@ -1,10 +1,13 @@
 import { Link } from 'react-router-dom'
 import styles from './styles.module.css'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { openSlidingCart } from '../../features/cart/slidingCart';
+import { BsCart3 } from "react-icons/bs";
 
 function Header() {
   const dispatch = useDispatch();
+  const productQuantity = useSelector((state) => state.cartData.productQuantity);
+
 
   return (
     <div className={styles.headerWrapper}>
@@ -21,8 +24,13 @@ function Header() {
             <div className={styles.account}>Acc</div>
             <Link onClick={() => dispatch(openSlidingCart())
             } className={styles.cart}>
-              <div>Cart</div>
-              <span className={styles.cartCount}>4</span>
+              <div className={styles.cartCountWrapper}>
+                <BsCart3 size={22}/>
+                <span className={styles.cartCount}>
+                  {productQuantity}
+                </span>
+              </div>
+              <div className={styles.title}>SEPET</div>
             </Link>
           </div>
 
