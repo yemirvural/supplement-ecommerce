@@ -8,6 +8,13 @@
     background: white;
 }
 
+.header * {
+    font-family: Futura PT;
+    font-weight: 500;
+    font-size: 15px;
+    box-sizing: border-box !important;
+}
+
 .headerWrapper {
     width: 100%;
     height: 80px;
@@ -52,7 +59,8 @@
     position: absolute;
     z-index: 5;
 }
-.userInteraction .title{
+
+.userInteraction .title {
     margin-right: calc(0.5rem * 0);
     margin-left: calc(0.5rem * 1);
     font-weight: 500;
@@ -60,25 +68,31 @@
 }
 
 .logo {
+    display: flex;
+    color: inherit;
+    width: 300px;
+    height: 50px;
+}
+
+.logo span {
+    max-width: 150px;
+    width: calc(100% - 24px);
+    height: 100%;
     position: relative;
     user-select: none;
-    display: flex;
-    align-items: end;
-    width: 250px;
-    height: 45px;
-    font-size: 24px;
-    font-weight: 800;
-    letter-spacing: -0.75px;
-    color: #29398e;
-    justify-content: center;
+    cursor: pointer;
 }
 
 .logo img {
-    width: 45px;
-    user-select: none;
     position: absolute;
-    left: 10px;
-    bottom: 4px;
+    inset: 0px;
+    box-sizing: border-box;
+    padding: 0px;
+    border: none;
+    margin: auto;
+    display: block;
+    width: auto;
+    height: 40px;
 }
 
 .searchBar {
@@ -89,7 +103,7 @@
     height: 50px;
     border-radius: 4px;
     box-sizing: border-box;
-    border: 2px solid grey;
+    border: 2px solid rgba(145, 145, 145);
     background-color: white;
 }
 
@@ -109,7 +123,7 @@
     font-size: 12px;
     font-weight: 600;
     color: white;
-    background-color: grey;
+    background-color: rgba(145, 145, 145);
 }
 
 .userInteraction {
@@ -118,32 +132,89 @@
     gap: 20px;
 }
 
-.account {
+.accountWrapper {
     display: flex;
+    flex-direction: column;
+    position: relative;
     justify-content: center;
     align-items: center;
     background-color: white;
     font-weight: 500;
-    color: grey;
+    color: rgba(145, 145, 145);
     width: 190px;
-    height: 45px;
+    min-height: 45px;
+    height: 100%;
     border-radius: 4px;
     box-sizing: border-box;
-    border: 2px solid grey;
+    border: 2px solid rgba(145, 145, 145);
+    gap: 5px;
+}
+
+.accountWrapper:hover .hiddenMenu {
+    display: flex;
+}
+
+.account {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+    height: 100%;
+}
+
+.hiddenMenu {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    color: rgba(0, 0, 0);
+    font-size: 14px;
+    line-height: 20px;
+    background-color: rgba(255, 255, 255);
+    border: 1px solid rgba(145, 145, 145);
+    width: 100%;
+    top: 100%;
+    height: auto;
+    z-index: 99;
+    position: absolute;
+}
+
+.accountWrapper:hover {
+    color: rgba(33, 38, 171);
+}
+
+.hiddenMenu a:hover {
+    color: rgba(33, 38, 171);
+}
+
+.hiddenMenu a {
+    color: rgba(0, 0, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    line-height: 32px;
+}
+
+.accountWrapper span {
+    display: flex;
+    position: absolute;
+    right: 10px;
 }
 
 .cart {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: grey;
+    background-color: rgba(145, 145, 145);
     color: white;
     font-weight: 500;
     width: 190px;
     height: 45px;
     border-radius: 4px;
     box-sizing: border-box;
-    border: 2px solid grey;
+    border: 2px solid rgba(145, 145, 145);
 }
 
 .cart:hover {

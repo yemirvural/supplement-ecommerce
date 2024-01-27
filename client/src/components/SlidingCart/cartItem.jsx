@@ -77,6 +77,7 @@ function CartItem({ data }) {
         <div>{data?.aroma}</div>
       </div>
       <div className={styles.productPriceContainer}>
+        {data.grayPrice && <div className={styles.productGrayPrice}>{formatPrice(calculatePrice(data.amount, data.grayPrice))} TL</div>}
         <div className={styles.productPrice}>{formatPrice(calculatePrice(data.amount, data.price))} TL</div>
         <div className={styles.productQuantity}>
           <button onClick={() => countHandler(-1)}>{data.amount === 1 ? <GoTrash /> : "-"}</button>

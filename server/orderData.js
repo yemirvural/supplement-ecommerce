@@ -1,6 +1,8 @@
-let cartData = [
+let orderData = [
     {
         userId: "0001",
+        date: "09 Sep 2023",
+        cost: "2458 TL",
         products: [
             {
                 id: "003",
@@ -41,37 +43,8 @@ let cartData = [
                 amount: 2,
             },
         ],
-        gifts: [
-            {
-                id: "110",
-                title: "POCKET SHAKER",
-                subTitle: "500 ML",
-                image: "https://cdn.myikas.com/images/00b6c111-71dc-4400-932f-8db87e5da64c/57b6cc14-53a3-4aba-9fb6-c26aa2fdcefc/image_180.webp",
-                price: 0,
-                grayPrice: 119,
-                amount: 1,
-            },
-            {
-                id: "111",
-                title: "PROTEİNOCEAN HAVLU",
-                subTitle: "",
-                image: "https://cdn.myikas.com/images/00b6c111-71dc-4400-932f-8db87e5da64c/a3828351-69ff-40ab-8bd4-00631c9e352d/image_180.webp",
-                price: 0,
-                grayPrice: 129,
-                amount: 1,
-            },
-            {
-                id: "112",
-                title: "RELENTLESS GYM HANDBAG",
-                subTitle: "",
-                image: "https://cdn.myikas.com/images/00b6c111-71dc-4400-932f-8db87e5da64c/5c9b28de-7b3e-4d96-b959-f00366ecf2f1/image_180.webp",
-                price: 0,
-                grayPrice: 249,
-                amount: 1,
-            },
-        ],
     },
 ]
 
 
-module.exports = cartData;
+module.exports = orderData;

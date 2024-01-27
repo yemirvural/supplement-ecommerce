@@ -3,6 +3,8 @@ import styles from './styles.module.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { openSlidingCart } from '../../features/cart/slidingCart';
 import { BsCart3 } from "react-icons/bs";
+import { FaRegUser } from "react-icons/fa";
+import { GoTriangleDown } from 'react-icons/go';
 
 function Header() {
   const dispatch = useDispatch();
@@ -14,18 +16,33 @@ function Header() {
       <div className={styles.header}>
         <div className={styles.wrapper}>
           <a href="/" className={styles.logo}>
-            <img src="/logo.png" alt="" />
+            <span>
+              <img src="https://proteinocean.com/logo.svg" alt="" />
+            </span>
           </a>
           <form className={styles.searchBar}>
             <input placeholder='please type a product name' type="text" />
             <button className={styles.searchButton}>SEARCH</button>
           </form>
           <div className={styles.userInteraction}>
-            <div className={styles.account}>Acc</div>
+            <div className={styles.accountWrapper}>
+              <div className={styles.account}>
+                <FaRegUser size={20} />
+                HESAP
+                <span>
+                  <GoTriangleDown size={28} />
+                </span>
+              </div>
+              <div className={styles.hiddenMenu}>
+                <Link to={'/account'}>HESAP</Link>
+                <Link to={'/account/orders'}>Siparişlerim</Link>
+                <Link to={'/logout'}>Çıkış Yap</Link>
+              </div>
+            </div>
             <Link onClick={() => dispatch(openSlidingCart())
             } className={styles.cart}>
               <div className={styles.cartCountWrapper}>
-                <BsCart3 size={22}/>
+                <BsCart3 size={22} />
                 <span className={styles.cartCount}>
                   {productQuantity}
                 </span>

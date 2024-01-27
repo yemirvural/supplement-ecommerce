@@ -1,14 +1,32 @@
-body {
-}
-
 .slidingCart * {
     box-sizing: border-box !important;
     font-family: Futura PT;
 }
 
 .slidingCart.active {
-    --tw-translate-x: 0px !important;
+    --tw-translate-x: 0px;
 }
+
+.stageInfo {
+    line-height: 24PX;
+    margin-top: 0;
+    font-size: 16px;
+    line-height: 20PX;
+    gap: 4px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    height: auto;
+    font-weight: 450;
+    display: flex;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.stageInfo span {
+    color: rgba(35, 45, 168);
+}
+
 .slidingCart {
     font-family: Futura PT;
     transition-property: transform;
@@ -41,10 +59,12 @@ body {
     --tw-translate-x: 100%;
     --tw-transform: translateX(var(--tw-translate-x)) translateY(var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
     transform: var(--tw-transform);
-    
+
 }
+
 .wrapper {
     position: relative;
+    height: 100%;
 }
 
 .header {
@@ -67,7 +87,7 @@ body {
 .body {
     display: flex;
     width: 100%;
-    height: auto;
+    height: 100%;
     flex-direction: column;
     position: relative;
 }
@@ -130,7 +150,7 @@ body {
 
 .progressItem {
     padding: 0.25rem;
-    border: 1px solid rgba(35, 45, 168);
+    border: 1px solid rgba(229, 229, 229);
     background-color: rgba(255, 255, 255);
     border-radius: 9999px;
     overflow: hidden;
@@ -138,6 +158,10 @@ body {
     height: 70px;
     z-index: 20;
     position: relative;
+}
+
+.progressItem.completed {
+    border: 1px solid rgba(35, 45, 168);
 }
 
 .progressItem span {
@@ -167,7 +191,7 @@ body {
 
 .productsContainer {
     background-color: rgba(247, 247, 247);
-    height: 575px;
+    height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -237,6 +261,12 @@ body {
     grid-column: span 4/span 4;
 }
 
+.productGrayPrice {
+    text-decoration: line-through;
+    color: rgba(237,39,39);
+    font-weight: 600;
+    text-align: right;
+}
 .productPrice {
     color: rgba(0, 0, 0);
     font-weight: 700;
@@ -258,7 +288,7 @@ body {
     background-color: rgba(255, 255, 255);
 }
 
-.productQuantity button{
+.productQuantity button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -282,8 +312,8 @@ body {
 .summaryContainer {
     padding-left: 40px;
     padding-right: 40px;
-    height: 100%;
-    min-height: 150px;
+    height: 150px;
+    margin-bottom: 65px;
 }
 
 .summaryContainer .buttonWrapper {

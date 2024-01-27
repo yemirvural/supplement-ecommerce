@@ -13,12 +13,27 @@ function SlidingCart() {
     const cartData = useSelector((state) => state.cartData.cartProducts);
     const userId = "0001"
     const isSlidingCartActive = useSelector((state) => state.slidingCart.isActive);
+    const giftItem = useSelector((state) => state.cartData.nextStage);
+    const allProducts = useSelector((state) => state.cartData.allProducts);
+    const gifts = useSelector((state) => state.cartData.gifts);
+
+    useEffect(() => {
+        const postGiftData = async () => {
+            try {
+                const response = await axios.post(`http://localhost:3000/cart/${userId}/updateGifts`, gifts);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+        postGiftData();
+    }, [gifts])
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(`http://localhost:3000/cart/${userId}`);
                 dispatch(updateProducts(response.data.products));
+                //dispatch(updateGifts(response.data.gifts));
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -26,7 +41,6 @@ function SlidingCart() {
         fetchData();
     }, [dispatch]);
 
-    cartData && console.log(cartData)
     const calculateSubTotalPrice = () => {
         let value = 0;
         cartData && cartData.map(item => value += (item.price * item.amount));
@@ -34,7 +48,8 @@ function SlidingCart() {
     }
     const calculateTotalDiscount = () => {
         let discountCost = 0;
-        return discountCost > 0 ? `-${discountCost}` : discountCost;
+        allProducts && allProducts.map(item => discountCost += (item.amount * (item.grayPrice - item.price)));
+        return discountCost;
     }
     const calculateTotalPrice = () => {
         let value = calculateSubTotalPrice();
@@ -44,9 +59,19 @@ function SlidingCart() {
 
     const progressPercent = () => {
         const totalValue = calculateTotalPrice();
-        let percent = 100 * (totalValue / 4000)
+        let percent;
+        if (totalValue <= 1000) percent = 10;
+        if (totalValue >= 1000 && totalValue <= 2500) percent = 30;
+        if (totalValue >= 2500 && totalValue <= 4000) percent = 70;
         if (totalValue >= 4000) percent = 100;
         return percent
+    }
+
+    const completedSteps = () => {
+        const steps = ["POCKET SHAKER", "PROTEİNOCEAN HAVLU", "RELENTLESS GYM HANDBAG"];
+        let stepIndex = giftItem && steps.indexOf(giftItem.title);
+        if(stepIndex === null) stepIndex = 3;
+        return steps.splice(0, stepIndex);
     }
 
     return (
@@ -56,13 +81,16 @@ function SlidingCart() {
                     <h3>SEPETIM</h3>
                 </div>
                 <div className={styles.body}>
+                    {giftItem && <div className={styles.stageInfo}>
+                        Hediye <span>{giftItem.title}</span> için <span>{giftItem.value - calculateSubTotalPrice()} TL</span> kaldı! 
+                    </div>}
                     <div className={styles.progressBarContainer}>
                         <div className={styles.progressBarWrapper}>
                             <div style={{ width: `calc(${progressPercent()}%)` }} className={styles.progressBar}></div>
                         </div>
                         <div className={styles.progressItems}>
                             <div className={styles.progressItemWrapper}>
-                                <div className={styles.progressItem}>
+                                <div className={`${styles.progressItem} ${completedSteps().includes('POCKET SHAKER') && styles.completed}`}>
                                     <span>
                                         <img src="https://cdn.myikas.com/images/theme-images/5d963a87-813f-4568-ab6c-83eada06d9cd/image_180.webp" alt="" />
                                     </span>
@@ -70,7 +98,7 @@ function SlidingCart() {
                                 <h3>1000 TL</h3>
                             </div>
                             <div className={styles.progressItemWrapper}>
-                                <div className={styles.progressItem}>
+                                <div className={`${styles.progressItem} ${completedSteps().includes('PROTEİNOCEAN HAVLU') && styles.completed}`}>
                                     <span>
                                         <img src="https://cdn.myikas.com/images/theme-images/400d930f-5432-43bd-8f19-7997d1f8b939/image_180.webp" alt="" />
                                     </span>
@@ -78,7 +106,7 @@ function SlidingCart() {
                                 <h3>2500 TL</h3>
                             </div>
                             <div className={styles.progressItemWrapper}>
-                                <div className={styles.progressItem}>
+                                <div className={`${styles.progressItem} ${completedSteps().includes('RELENTLESS GYM HANDBAG') && styles.completed}`}>
                                     <span>
                                         <img src="https://cdn.myikas.com/images/theme-images/2379caef-7884-4d91-9e74-84f47c7c5903/image_180.webp" alt="" />
                                     </span>
@@ -91,7 +119,7 @@ function SlidingCart() {
                     </div>
                     <div className={styles.productsContainer}>
                         {
-                            cartData && cartData.map(data =>
+                            allProducts && allProducts.map(data =>
                                 <CartItem key={data.id} data={data} />
                             )
                         }
@@ -106,8 +134,8 @@ function SlidingCart() {
                                 </button>
                             </div>
                             <div>
-                                <div className={styles.totalPrice}>TOPLAM {calculateTotalPrice()} TL</div>
-                                <div className={styles.discount}>İndirimler: {calculateTotalDiscount()} TL</div>
+                                <div className={styles.totalPrice}>TOPLAM {calculateSubTotalPrice()} TL</div>
+                                <div className={styles.discount}>İndirimler: {calculateTotalDiscount() > 0 ? `-${calculateTotalDiscount()}` : calculateTotalDiscount()} TL</div>
                             </div>
                         </div>
                         <div className={styles.buttonWrapper}>

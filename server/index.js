@@ -34,6 +34,14 @@ app.get("/cart/:id", (req, res) => {
     }
     res.status(400).json({ error: 'User doesnt found' });
 })
+app.post("/cart/:id/updateGifts", (req, res) => {
+    const { id } = req.params;
+    const gifts = req.body;
+    const userData = cartData.find((data) => data.userId === id);
+    userData.gifts = gifts;
+    res.status(200).send(userData);
+})
+
 app.post("/cart/:id", (req, res) => {
     const { id } = req.params;
     const product = req.body;

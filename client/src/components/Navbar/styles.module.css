@@ -16,7 +16,7 @@
     height: auto;
     background-color: black;
     position: fixed;
-    z-index: 9999;
+    z-index: 99;
     width: 100%;
     top: 80px;
 }
