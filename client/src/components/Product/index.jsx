@@ -102,7 +102,6 @@ function Product({ productName }) {
     if (!product) {
       dispatch(addProduct(resData))
     }
-
     const response = await axios.post(`http://localhost:3000/cart/${userId}`, resData);
   }
 

@@ -2,7 +2,7 @@ import { formatPrice } from '../../utils/formatPrice'
 import styles from './styles.module.css'
 import { GoTrash } from "react-icons/go";
 import { useDispatch } from 'react-redux';
-import { deleteProduct, updateProduct } from '../../features/cart/cartData';
+import { addProduct, deleteProduct, updateProduct } from '../../features/cart/cartData';
 import axios from 'axios';
 
 function CartItem({ data }) {
@@ -57,13 +57,22 @@ function CartItem({ data }) {
       console.error('Error updating product count:', error);
     }
   }
-
+  
   const countHandler = async (num) => {
     try {
       const newCount = data.amount + num;
       const productData = { id: data.id, size: data.size, aroma: data.aroma, count: newCount };
 
       if (data.amount + num >= 1) {
+        if(data.price === 0){ // It means product is a gift
+          const newData = {...data};
+          newData.price = data.grayPrice;
+          newData.grayPrice = null;
+          newData.value = null;
+          newData.amount = data.amount + num - 1;
+          const response = await axios.post(`http://localhost:3000/cart/${userId}`, newData);
+          return dispatch(addProduct(newData));
+        }
         const response = await axios.patch(`http://localhost:3000/cart/${userId}`, productData);
         if (response.status === 200) {
           return dispatch(updateProduct(productData));
