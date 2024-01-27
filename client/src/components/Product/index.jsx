@@ -10,7 +10,7 @@ import { updateAroma, updatePiece } from "../../features/product/productSlice";
 import SizeItem from "./sizeItem";
 import AromaItem from "./aromaItem"
 import { openSlidingCart } from "../../features/cart/slidingCart";
-import { addProduct } from "../../features/cart/cartData";
+import { addProduct, updateProduct } from "../../features/cart/cartData";
 
 
 function Product({ productName }) {
@@ -23,6 +23,8 @@ function Product({ productName }) {
   const aroma = useSelector((state) => state.product.aroma);
   const size = useSelector((state) => state.product.size);
   const piece = useSelector((state) => state.product.piece);
+  const cartProducts = useSelector((state) => state.cartData.cartProducts)
+  const allProducts = useSelector((state) => state.cartData.allProducts)
 
   const [section1, setSection1] = useState(false);
   const [section2, setSection2] = useState(false);
@@ -91,8 +93,16 @@ function Product({ productName }) {
       grayPrice: data?.grayPrice,
       amount: piece,
     }
-    dispatch(addProduct(resData))
     dispatch(openSlidingCart())
+    const product = allProducts.find(el => el.id === data.id && el.aroma === aroma && el.size === size)
+    if (product) {
+      const newCount = product.amount + piece;
+      dispatch(updateProduct({ id: data.id, size, aroma, count: newCount }))
+    }
+    if (!product) {
+      dispatch(addProduct(resData))
+    }
+
     const response = await axios.post(`http://localhost:3000/cart/${userId}`, resData);
   }
 

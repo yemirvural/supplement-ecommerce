@@ -73,19 +73,23 @@ app.patch("/cart/:id", (req, res) => {
     const { id } = req.params;
     const data = req.body;
     const userData = cartData.find((data) => data.userId === id);
-    const dataProduct = userData.products.find(item => item.id === data.id)
-    
-    if(dataProduct){
-        dataProduct.amount = data.count
+    const product = userData.products.find((el) => el.id === data.id && el.aroma === data.aroma && el.size === data.size) // Gifts ??
+
+    if(product){
+        product.amount = data.count
     }
     res.status(200).send(cartData);
 })
-app.delete("/cart/:id/:productId", (req, res) => {
-    const { id, productId } = req.params; 
-    const userCartData = cartData.find((data) => data.userId === id);
-    const filteredCartData = userCartData.products.filter((product) => product.id !== productId);
-    userCartData.products = filteredCartData;
-    if (userCartData) {
+app.delete("/cart/:id", (req, res) => {
+    const { id } = req.params; 
+    const data = req.body;
+    const userData = cartData.find((data) => data.userId === id);
+    const product = userData.products.find((el) => el.id === data.id && el.aroma === data.aroma && el.size === data.size) // Gifts ??
+
+    const filteredCartData = userData.products.filter((item) => item !== product);
+    userData.products = filteredCartData;
+    
+    if (userData) {
         res.send(cartData);
     }
     res.status(400).json({ error: 'User doesnt found' });

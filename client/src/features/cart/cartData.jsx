@@ -92,8 +92,9 @@ export const carDataSlice = createSlice({
             updateCartState(state);
         },
         updateProduct: (state, action) => {
-            const product = state.cartProducts.find(item => item.id === action.payload.id)
-            product.amount = action.payload.amount
+            const product = state.cartProducts.find((el) => el.id === action.payload.id && el.aroma === action.payload.aroma && el.size === action.payload.size) // Gifts ??
+            console.log(action.payload)
+            product.amount = action.payload.count
             updateCartState(state);
         },
         addProduct: (state, action) => {

@@ -23,9 +23,8 @@ function CheckOut() {
   const id = "8817d9ec-8eb0-405d-839e-2f75fc1cc8ba";
   const userId = "0001";
   const step = useSelector((state) => state.cart.step);
-  const cartData = useSelector((state) => state.cartData.cartProducts);
+  const allProducts = useSelector((state) => state.cartData.allProducts);
 
-  cartData && console.log(cartData)
   let addressData = [
     {
       id: "0000",
@@ -99,7 +98,7 @@ function CheckOut() {
 
   const calculateSubTotalPrice = () => {
     let value = 0;
-    cartData && cartData.map(item => value += (item.price * item.amount));
+    allProducts && allProducts.map(item => value += (item.price * item.amount));
     return value;
   }
   const calculateTotalPrice = () => {
@@ -188,7 +187,7 @@ function CheckOut() {
           <div className={styles.cartSummary}>
             <div className={styles.productsContainer}>
               {
-                cartData && cartData.map((item) =>
+                allProducts && allProducts.map((item) =>
                 (
                   <div key={item.id} className={styles.product}>
                     <div className={styles.productImage}>

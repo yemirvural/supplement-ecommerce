@@ -17,29 +17,40 @@ function CartItem({ data }) {
   const inputHandler = async (e) => {
     try {
       const numberRegex = /^[1-9]\d*$/;
+
       if (e.target.value === "") {
-        return dispatch(updateProduct({ id: data.id, amount: "" }));
+        let newCount = "";
+        const productData = { id: data.id, size: data.size, aroma: data.aroma, count: newCount };
+        return dispatch(updateProduct(productData));
       }
       if (e.target.value == 0) {
-        return dispatch(updateProduct({ id: data.id, amount: "" }));
+        let newCount = "";
+        const productData = { id: data.id, size: data.size, aroma: data.aroma, count: newCount };
+        return dispatch(updateProduct(productData));
       }
       if (numberRegex.test(e.target.value)) {
         let newCount = Number(e.target.value);
-        const response = await axios.patch(`http://localhost:3000/cart/${userId}`, { id: data.id, count: newCount });
+        const productData = { id: data.id, size: data.size, aroma: data.aroma, count: newCount };
+        console.log(productData)
+        const response = await axios.patch(`http://localhost:3000/cart/${userId}`, productData);
         if (response.status === 200) {
-          return dispatch(updateProduct({ id: data.id, amount: newCount }));
+          return dispatch(updateProduct(productData));
         }
       }
     } catch (error) {
       console.error('Error updating product count:', error);
     }
   }
+
   const bludHandler = async (e) => {
     try {
+      const newCount = 1;
+      const productData = { id: data.id, size: data.size, aroma: data.aroma, count: newCount };
+
       if (e.target.value === "") {
-        const response = await axios.patch(`http://localhost:3000/cart/${userId}`, { id: data.id, count: 1 });
+        const response = await axios.patch(`http://localhost:3000/cart/${userId}`, productData);
         if (response.status === 200) {
-          return dispatch(updateProduct({ id: data.id, amount: 1 }))
+          return dispatch(updateProduct(productData))
         }
       }
     } catch (error) {
@@ -49,15 +60,18 @@ function CartItem({ data }) {
 
   const countHandler = async (num) => {
     try {
-      const productId = data.id;
       const newCount = data.amount + num;
+      const productData = { id: data.id, size: data.size, aroma: data.aroma, count: newCount };
+
       if (data.amount + num >= 1) {
-        const response = await axios.patch(`http://localhost:3000/cart/${userId}`, { id: data.id, count: newCount });
+        const response = await axios.patch(`http://localhost:3000/cart/${userId}`, productData);
         if (response.status === 200) {
-          return dispatch(updateProduct({ id: data.id, amount: newCount }));
+          return dispatch(updateProduct(productData));
         }
       }
-      const response = await axios.delete(`http://localhost:3000/cart/${userId}/${productId}`);
+      const response = await axios.delete(`http://localhost:3000/cart/${userId}`, {
+        data: productData
+      });
       if (response.status === 200) {
         dispatch(deleteProduct(data.id))
       }

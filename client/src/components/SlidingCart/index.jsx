@@ -48,7 +48,7 @@ function SlidingCart() {
     }
     const calculateTotalDiscount = () => {
         let discountCost = 0;
-        allProducts && allProducts.map(item => discountCost += (item.amount * (item.grayPrice - item.price)));
+        allProducts && allProducts.map(item => item.grayPrice && (discountCost += (item.amount * (item.grayPrice - item.price))));
         return discountCost;
     }
     const calculateTotalPrice = () => {
@@ -58,7 +58,7 @@ function SlidingCart() {
     }
 
     const progressPercent = () => {
-        const totalValue = calculateTotalPrice();
+        const totalValue = calculateSubTotalPrice();
         let percent;
         if (totalValue <= 1000) percent = 10;
         if (totalValue >= 1000 && totalValue <= 2500) percent = 30;
@@ -119,8 +119,8 @@ function SlidingCart() {
                     </div>
                     <div className={styles.productsContainer}>
                         {
-                            allProducts && allProducts.map(data =>
-                                <CartItem key={data.id} data={data} />
+                            allProducts && allProducts.map((data, index) =>
+                                <CartItem key={index} data={data} />
                             )
                         }
                     </div>
