@@ -23,13 +23,11 @@ function CartItem({ data }) {
 
       if (e.target.value === "") {
         let newCount = "";
-        console.log("babba silinmiyo 1")
         const productData = { id: data.id, size: data.size, aroma: data.aroma, count: newCount, value: data.value };
         return dispatch(updateProduct(productData));
       }
       if (e.target.value == 0) {
         let newCount = "";
-        console.log("babba silinmiyo 2")
         const productData = { id: data.id, size: data.size, aroma: data.aroma, count: newCount, value: data.value };
         return dispatch(updateProduct(productData));
       }
@@ -53,15 +51,18 @@ function CartItem({ data }) {
         return dispatch(updateProduct({ id: data.id, size: data.size, aroma: data.aroma, count: 1, value: data.value })) // gift update
       }
       const newCount = product.amount + Number(e.target.value) - 1;
-      const giftData = { id: data.id, size: data.size, aroma: data.aroma, count: 1, value: data.value };
-      const paidData = { id: data.id, size: data.size, aroma: data.aroma, count: newCount };
-    
-
-      if (e.target.value === "" || data.value && e.target.value > 1) {
-        const response1 = await axios.patch(`http://localhost:3000/cart/${userId}`, paidData);
+      if (e.target.value === "") {
+        const response1 = await axios.patch(`http://localhost:3000/cart/${userId}`, { id: data.id, size: data.size, aroma: data.aroma, count: 1 });
         if (response1.status === 200) {
-          dispatch(updateProduct(paidData)) // paid update
-          dispatch(updateProduct(giftData)) // gift update
+          return dispatch(updateProduct({ id: data.id, size: data.size, aroma: data.aroma, count: 1 }))
+        }
+      }
+      if (data.value && e.target.value > 1) {
+        const response1 = await axios.patch(`http://localhost:3000/cart/${userId}`, { id: data.id, size: data.size, aroma: data.aroma, count: 1, value: data.value });
+        const response2 = await axios.patch(`http://localhost:3000/cart/${userId}`, { id: data.id, size: data.size, aroma: data.aroma, count: newCount });
+        if (response1.status === 200 && response2.status === 200) {
+          dispatch(updateProduct({ id: data.id, size: data.size, aroma: data.aroma, count: newCount }))
+          return dispatch(updateProduct({ id: data.id, size: data.size, aroma: data.aroma, count: 1, value: data.value }))
         }
       }
     } catch (error) {
@@ -86,7 +87,6 @@ function CartItem({ data }) {
           if (response.status === 200) {
             if (product) {
               productData.count = product.amount + num
-              console.log(productData)
               return dispatch(updateProduct(productData));
             }
             return dispatch(addProduct(newData));

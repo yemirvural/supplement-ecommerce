@@ -94,10 +94,8 @@ export const carDataSlice = createSlice({
             let product = state.cartProducts.find((el) => el.id === action.payload.id && el.aroma === action.payload.aroma && el.size === action.payload.size) // Paid Products
             if (action.payload.value) {
                 product = state.cartStages.find((el) => el.id === action.payload.id && el.aroma === action.payload.aroma && el.size === action.payload.size) // Gift Products
-                console.log("girdi")
-            }
+            }   
             product.amount = action.payload.count
-            console.log(product.amount)
             updateCartState(state);
         },
         addProduct: (state, action) => {
