@@ -9,11 +9,13 @@
 
 .formInputWrapper * {
     box-sizing: border-box !important;
-    font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-family: Futura PT;
     font-size: 16px;
     letter-spacing: normal;
     font-weight: normal;
     line-height: unset;
+    color: rgba(255,255,255);
+    font-weight: 600;
 }
 
 .formInputWrapper label {
@@ -28,6 +30,7 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    align-items: center;
     transition: transform 0.1s;
     transform: translateY(18px);
     font-size: 0.85em;
@@ -215,4 +218,12 @@
 .formInputWrapper input[type="tel"]::placeholder {
     color: #8A8B94 !important;
     font-size: 14px !important;
+}
+.formPasswordWrapper input{
+    text-decoration: underline;
+}
+
+.formInputWrapper input[type="password"] {
+    text-decoration: dashed;
+    letter-spacing: 8px;
 }

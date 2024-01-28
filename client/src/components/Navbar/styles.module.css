@@ -1,24 +1,26 @@
 .navbar{
-    justify-content: center;
-    align-items: center;
-    height: 35px;
-    max-height: 70px;
-}
-.wrapper{
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    height: auto;
-    background-color: black;
-    color: white;
+    box-sizing: border-box;
+    border: 0 solid;
+    font-family: Futura PT;
     font-weight: 500;
     width: 100%;
-    height: auto;
-    background-color: black;
-    position: fixed;
-    z-index: 99;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+}
+.wrapper{
+    background-color: rgba(34,34,34);
+    text-align: center;
+    flex-wrap: wrap;
+    display: flex;
+    box-sizing: border-box;
+    border: 0 solid;
+    display: flex;
+    justify-content: center;
+    max-height: 70px;
     width: 100%;
-    top: 80px;
+    z-index: 999;
+    position: fixed;
 }
 
 .wrapper .item:nth-child(n+8){

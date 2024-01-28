@@ -17,8 +17,10 @@ const Layout = ({ children }) => {
 
     return (
         <>
-            <Header />
-            <Navbar />
+            <header>
+                <Header />
+                <Navbar />
+            </header>
             <div onClick={() => dispatch(closeSlidingCart())} className={`${isSlidingCartActive ? styles.popup : ""}`}></div>
             <SlidingCart />
             <div>

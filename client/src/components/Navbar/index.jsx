@@ -14,13 +14,13 @@ const categories = [
 
 function Navbar() {
   return (
-    <div className={styles.navbar}>
+    <nav className={styles.navbar}>
       <div className={styles.wrapper}>
         {
           categories.map((item, index) => {return (<a href="/" key={index} className={styles.item}>{item}</a >)})
         }
       </div>
-    </div>
+    </nav>
   )
 }
 

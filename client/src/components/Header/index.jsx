@@ -10,6 +10,7 @@ function Header() {
   const dispatch = useDispatch();
   const productQuantity = useSelector((state) => state.cartData.productQuantity);
 
+  const isLoggedIn = false;
 
   return (
     <div className={styles.headerWrapper}>
@@ -34,9 +35,18 @@ function Header() {
                 </span>
               </div>
               <div className={styles.hiddenMenu}>
-                <Link to={'/account'}>HESAP</Link>
-                <Link to={'/account/orders'}>Siparişlerim</Link>
-                <Link to={'/logout'}>Çıkış Yap</Link>
+                {
+                  isLoggedIn ?
+                    <>
+                      <Link to={'/account'}>HESAP</Link>
+                      <Link to={'/account/orders'}>Siparişlerim</Link>
+                      <Link to={'/account/logout'}>Çıkış Yap</Link></>
+                    :
+                    <>
+                      <Link to={'/account/login'}>Üye Girişi</Link>
+                      <Link to={'/account/register'}>Üye Ol</Link>
+                    </>
+                }
               </div>
             </div>
             <Link onClick={() => dispatch(openSlidingCart())

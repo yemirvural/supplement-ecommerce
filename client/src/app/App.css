@@ -8,6 +8,7 @@ div{
 }
 
 #root {
+  min-height: 105vh;
 }
 
 input {
