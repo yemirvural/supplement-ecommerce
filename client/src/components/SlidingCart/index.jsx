@@ -61,6 +61,7 @@ function SlidingCart() {
         const totalValue = calculateSubTotalPrice();
         let percent;
         if (totalValue <= 1000) percent = 10;
+        if (totalValue === 0) percent = 0;
         if (totalValue >= 1000 && totalValue <= 2500) percent = 30;
         if (totalValue >= 2500 && totalValue <= 4000) percent = 70;
         if (totalValue >= 4000) percent = 100;

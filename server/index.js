@@ -48,6 +48,7 @@ app.post("/cart/:id", (req, res) => {
     const userData = cartData.find((data) => data.userId === id);
     const dataProduct = userData.products.find(item => item.id === product.id)
 
+
     if (!userData) {
         const newData = {
             userId: id,
@@ -55,18 +56,23 @@ app.post("/cart/:id", (req, res) => {
         }
         cartData.push(newData);
         res.status(200).send(cartData);
+        console.log("1")
     }
     if (!product) {
+        console.log("2")
         res.status(404).json({ info: 'There is not product to add cart' })
     }
-    if (!dataProduct || dataProduct.aroma !== product.aroma || dataProduct.size !== product.size) {
+    if (!dataProduct || dataProduct.aroma !== product.aroma || dataProduct.size !== product.size) { // ??? | REFACTOR
         userData.products.push(product)
+        console.log("3")
         res.status(200).send(cartData);
     }
-    if(dataProduct.aroma === product.aroma && dataProduct.size === product.size){
+    if(dataProduct.aroma === product.aroma && dataProduct.size === product.size){ // ??? | REFACTOR
         dataProduct.amount += product.amount;
+        console.log("4")
         res.status(200).send(cartData);
     }
+    console.log(...cartData)
     //res.status(200).json({ info: 'Product added to cart successfully!' });
 })
 app.patch("/cart/:id", (req, res) => {
