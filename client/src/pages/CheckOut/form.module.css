@@ -14,7 +14,6 @@
     letter-spacing: normal;
     font-weight: normal;
     line-height: unset;
-    color: rgba(255,255,255);
     font-weight: 600;
 }
 
@@ -164,7 +163,7 @@
     min-height: 16px;
 }
 
-.selectFlag .flag .flagArrow {
+.selectFlag .flagArrow {
     display: block;
     content: "";
     width: 0.3em;

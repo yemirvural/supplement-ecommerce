@@ -103,7 +103,8 @@ export const carDataSlice = createSlice({
             updateCartState(state);
         },
         deleteProduct: (state, action) => {
-            const filteredProducts = state.cartProducts.filter(item => item.id !== action.payload)
+            let product = state.cartProducts.find((el) => el.id === action.payload.id && el.aroma === action.payload.aroma && el.size === action.payload.size) // Paid Products
+            const filteredProducts = state.cartProducts.filter(item => item !== product)
             state.cartProducts = filteredProducts
             updateCartState(state);
         },

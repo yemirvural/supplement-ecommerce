@@ -14,5 +14,6 @@ button {
 }
 
 a{
+  color: unset;
   text-decoration: none;
 }

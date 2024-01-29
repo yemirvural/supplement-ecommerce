@@ -1,0 +1,53 @@
+.navbarWrapper * {
+    font-family: Futura PT;
+}
+
+.navbarWrapper {
+    flex-direction: row;
+}
+
+.navbarWrapper>h1 {
+    font-size: 36px;
+    text-align: left;
+    font-weight: 700;
+    line-height: 40px;
+    margin: unset;
+    margin-bottom: 16px;
+}
+
+.navbarWrapper>div {
+    flex-direction: column;
+    flex-grow: 0;
+    flex-shrink: 0;
+    min-width: 0;
+    width: 15rem;
+    display: block;
+    overflow-x: auto;
+    flex-shrink: 0;
+    min-width: 100%;
+    display: flex;
+}
+
+.navbarWrapper>div svg {
+    width: 24px;
+    height: 24px;
+}
+.navbarWrapper>div a {
+    margin-left: 0;
+    margin-right: 0;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    gap: 16px;
+    font-weight: 500;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    align-items: center;
+    flex-shrink: 0;
+    display: flex;
+}
+.navbarWrapper>div a.active {
+    font-weight: 600;
+}
+.navbarWrapper>div a:hover {
+    text-decoration: underline;
+}

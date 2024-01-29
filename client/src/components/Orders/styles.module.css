@@ -1,0 +1,82 @@
+.ordersWrapper {
+    width: 100%;
+    flex-grow: 1;
+}
+
+.ordersWrapper>span {
+    display: flex;
+    font-weight: 700;
+    border-radius: 0.25rem;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.orderItem {
+    gap: 2rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    gap: 1rem;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    display: grid;
+}
+.orderItem:not(:last-child) {
+    border-bottom: 1px solid ;
+}
+
+.orderItem .photo {
+    box-sizing: border-box;
+    display: block;
+    overflow: hidden;
+    width: initial;
+    height: initial;
+    background: none;
+    opacity: 1;
+    border: 0px;
+    margin: 0px;
+    padding: 0px;
+    position: relative;
+}
+
+.orderItem .photo img {
+    inset: 0px;
+    box-sizing: border-box;
+    padding: 0px;
+    border: none;
+    margin: auto;
+    display: block;
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
+.orderItem .info {
+    grid-column: span 6/span 6;
+}
+
+.orderItem .orderStatus {
+    color: rgba(82, 196, 26);
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+
+.orderItem .productName {
+    font-weight: 600;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.orderItem .orderInteraction {
+    grid-column: span 3/span 3;
+    gap: 8px;
+    justify-content: flex-end;
+    display: flex;
+    margin-left: auto;
+    margin-top: 24px;
+}
+.orderItem .orderInteraction button{
+    width: 150px;
+    font-family: Futura PT;
+    font-size: 16px;
+    font-weight: 450;
+}

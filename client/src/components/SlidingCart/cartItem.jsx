@@ -6,7 +6,6 @@ import { addProduct, deleteProduct, updateProduct } from '../../features/cart/ca
 import axios from 'axios';
 
 function CartItem({ data }) {
-  const allProducts = useSelector((state) => state.cartData.allProducts);
   const cartProducts = useSelector((state) => state.cartData.cartProducts);
 
   const dispatch = useDispatch();
@@ -108,7 +107,7 @@ function CartItem({ data }) {
         data: productData
       });
       if (response.status === 200) {
-        dispatch(deleteProduct(data.id))
+        dispatch(deleteProduct(productData))
       }
     } catch (error) {
       console.error('Error updating product count:', error);

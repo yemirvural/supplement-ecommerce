@@ -10,7 +10,7 @@ function Header() {
   const dispatch = useDispatch();
   const productQuantity = useSelector((state) => state.cartData.productQuantity);
 
-  const isLoggedIn = false;
+  const isLoggedIn = true;
 
   return (
     <div className={styles.headerWrapper}>

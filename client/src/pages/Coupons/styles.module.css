@@ -1,0 +1,10 @@
+.accountWrapper {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: row;
+    width: 100%;
+    max-width: 1200px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 24px;
+}

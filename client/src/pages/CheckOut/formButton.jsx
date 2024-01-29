@@ -1,7 +1,7 @@
 import styles from './form.module.css';
 import { useNavigate } from 'react-router-dom';
 
-function FormButton({ children, color, bgColor, height, type, borderRadius, onClick }) {
+function FormButton({ children, color, bgColor, height, type, borderRadius, borderColor, onClick }) {
     const navigate = useNavigate();
 
     return (
@@ -9,6 +9,7 @@ function FormButton({ children, color, bgColor, height, type, borderRadius, onCl
             style={{
                 color: color,
                 backgroundColor: bgColor,
+                borderColor,
                 height: height,
                 borderRadius,
             }}>

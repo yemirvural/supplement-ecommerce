@@ -1,0 +1,56 @@
+.addressWrapper {
+    width: 100%;
+    flex-grow: 1;
+    font-family: Futura PT;
+    font-weight: 450;
+}
+
+.addressWrapper>span {
+    display: flex;
+    font-weight: 700;
+    border-radius: 0.25rem;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.addresses {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(3,minmax(0,1fr));
+}
+
+.addressItem {
+    border: 1px solid;
+    border-radius: 0.25rem;
+    flex-direction: column;
+    width: 100%;
+    display: flex;
+}
+.addressItem > span{
+    padding: 1rem;
+    flex-grow: 0;
+}
+
+.addressItem .address{
+    flex-grow: 1;
+}
+.addressItem .body{
+    padding: 16px;
+    justify-content: space-between;
+    flex-direction: column;
+    flex-grow: 1;
+    display: flex;
+}
+.addressItem .addressInteraction{
+    justify-content: space-between;
+    align-items: center;
+    flex-grow: 0;
+    display: flex;
+    margin-top: 2rem;
+}
+.addressItem .addressInteraction > button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
