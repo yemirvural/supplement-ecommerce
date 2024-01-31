@@ -1,11 +1,18 @@
-const data = require('./data');
 const express = require('express');
 const cors = require('cors');
+const dotenv = require('dotenv');
 const axios = require('axios');
 const bodyParser = require('body-parser');
+const authController = require('./controllers/authController')
+const mongoose = require('mongoose');
+
+const data = require('./data');
 let cartData = require('./cartData');
+dotenv.config({ path: './config.env' })
 
 const app = express();
+const DB = process.env.DATABASE.replace('<password>', process.env.DATABASE_PASSWORD)
+
 
 const calculateCallingCode = (idd) => {
     if (idd.suffixes && !idd.suffixes[1]) {
@@ -17,8 +24,13 @@ const calculateCallingCode = (idd) => {
 
 let cachedFlagData = [];
 
+mongoose.connect(DB).then(() => console.log('DB Connection successful!'))
+
 app.use(cors());
 app.use(bodyParser.json());
+
+app.post('/login', authController.login)
+app.post('/register', authController.register)
 
 app.get("/products", (req, res) => {
     res.send(data);
@@ -67,7 +79,7 @@ app.post("/cart/:id", (req, res) => {
         console.log("3")
         res.status(200).send(cartData);
     }
-    if(dataProduct.aroma === product.aroma && dataProduct.size === product.size){ // ??? | REFACTOR
+    if (dataProduct.aroma === product.aroma && dataProduct.size === product.size) { // ??? | REFACTOR
         dataProduct.amount += product.amount;
         console.log("4")
         res.status(200).send(cartData);
@@ -81,20 +93,20 @@ app.patch("/cart/:id", (req, res) => {
     const userData = cartData.find((data) => data.userId === id);
     const product = userData.products.find((el) => el.id === data.id && el.aroma === data.aroma && el.size === data.size) // Gifts ??
 
-    if(product){
+    if (product) {
         product.amount = data.count
     }
     res.status(200).send(cartData);
 })
 app.delete("/cart/:id", (req, res) => {
-    const { id } = req.params; 
+    const { id } = req.params;
     const data = req.body;
     const userData = cartData.find((data) => data.userId === id);
     const product = userData.products.find((el) => el.id === data.id && el.aroma === data.aroma && el.size === data.size) // Gifts ??
 
     const filteredCartData = userData.products.filter((item) => item !== product);
     userData.products = filteredCartData;
-    
+
     if (userData) {
         res.send(cartData);
     }
